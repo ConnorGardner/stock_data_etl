@@ -6,7 +6,7 @@ import boto3
 from datetime import datetime
 from datetime import timezone
 
-API_KEY = os.getenv('FINNHUB_API_KEY') # both set in lamda environment variables area
+API_KEY = os.getenv('FINNHUB_API_KEY') # both set in lambda environment variables area
 BUCKET = os.getenv('BUCKET_NAME')
 TICKERS = ['SPY', 'SMH', 'ABAT', 'UUUU', 'ALAB', 'JD']
 

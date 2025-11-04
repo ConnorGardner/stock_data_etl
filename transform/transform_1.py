@@ -1,17 +1,10 @@
-import pandas as pd
-import os
-# from file_handling import load_file
-from file_handling import save_file
-load_fn = 'stock_data_v07.csv' #! Modify for each run 
-
-
-load_dir = '/home/cgardner01/aws_lambda_finnhub/transform/standardize_dfs' #* Keep static
+from file_handling import save_file, load_file
 
 
 def load_standardize_df():
-    
-    load_path = os.path.join(load_dir, load_fn)
-    df = pd.read_csv(load_path)
+    load_fn_base = 'stock_data_v'
+    load_dir = '/home/cgardner01/aws_lambda_finnhub/transform/standardize_dfs' #* Keep static
+    df = load_file(load_dir=load_dir, load_fn_base=load_fn_base)
     return df
 
 def transformations(df):

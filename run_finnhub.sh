@@ -4,5 +4,5 @@ export BUCKET_NAME='finnhub-bucket'
 
 python3 lambda_function.py
 
-# Use to test code locally, but also writes to s3 bucket.
+# Use to test code locally before deploying in aws.
 # Ideally after making code changes, run this, check everything works (data up in s3), and then run ./deploy.sh to send code up to aws lambda.
