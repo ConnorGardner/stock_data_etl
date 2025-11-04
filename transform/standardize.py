@@ -3,7 +3,7 @@ import io
 import json
 import boto3
 import pandas as pd
-from datetime import datetime, timezone
+from datetime import datetime
 from zoneinfo import ZoneInfo
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from botocore.config import Config
