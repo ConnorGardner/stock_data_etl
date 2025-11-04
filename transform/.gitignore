@@ -1,4 +1,15 @@
+# Data and intermediate output folders
 raw_files/
 standardize_dfs/
 t1_dfs/
+
+# Compiled and cache files
 __pycache__/
+*.py[cod]
+
+# AWS deployment packages and zip archives
+function.zip
+aws/
+
+# (Optional) editor / system files
+.DS_Store
