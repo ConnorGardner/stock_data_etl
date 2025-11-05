@@ -1,10 +1,29 @@
-from file_handling import save_file, load_file
+from file_handling import save_file
+import boto3
+from io import BytesIO
+import pandas as pd
 
 
-def load_standardize_df():
-    load_fn_base = 'stock_data_v'
-    load_dir = '/home/cgardner01/aws_lambda_finnhub/transform/standardize_dfs' #* Keep static
-    df = load_file(load_dir=load_dir, load_fn_base=load_fn_base)
+def load_standardize_df(bucket='finnhub-bucket', prefix='finnhub_standardize/'):
+    s3 = boto3.client('s3')
+
+    paginator = s3.get_paginator('list_objects_v2')
+    objs = []
+    for page in paginator.paginate(Bucket=bucket, Prefix=prefix):
+        for o in page.get('Contents', []):
+            if o['Key'].endswith(('.csv')):
+                objs.append(o)
+    
+    if not objs:
+        raise FileNotFoundError(f'No CSVs under s3://{bucket}/{prefix}')
+    
+    newest = max(objs, key=lambda o: o['LastModified'])
+    key = newest['Key']
+
+    body = s3.get_object(Bucket=bucket, Key=key)['Body'].read()
+    bio = BytesIO(body)
+    df = pd.read_csv(bio, compression='gzip' if key.endswith('.gz') else None)
+
     return df
 
 def transformations(df):
