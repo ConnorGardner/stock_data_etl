@@ -1,6 +1,6 @@
 ## This serves as notes on the ETL as well as my own thoughts for potential additions #
 
-The initial goal of this project was to demonstrate how one can fetch stock data from an API, tranform it from .json into readable dataframes, and do some transformations on the data to standardize it.
+The initial goal of this project was to demonstrate how one can fetch stock data from an API, transform it from .json into readable dataframes, and standardize the data.
 
 In the beginning, this project ran entirely locally on my machine. Although, I quickly learned that I needed to configure a runtime schedule as I wanted the API data every minute through market hours. AWS came in handy here and I decided to utilize both Lambda functions (for deployment) and S3 storage act as my 'data-lake'. Because of this, this code will NOT run locally if you just download it to your machine, it is set up to be placed into Lambdas. 
 
