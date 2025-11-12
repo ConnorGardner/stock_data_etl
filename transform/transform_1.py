@@ -17,9 +17,16 @@ def load_standardize_df(bucket='finnhub-bucket', prefix='finnhub_standardize/'):
     if not objs:
         raise FileNotFoundError(f'No CSVs under s3://{bucket}/{prefix}')
     
-    newest = max(objs, key=lambda o: o['LastModified'])
-    key = newest['Key']
+    newest = None
+    latest_time = None
 
+    for o in objs:
+        if latest_time is None or o['LastModified'] > latest_time:
+            newest = o
+            latest_time = o['LastModified']
+    
+    key = newest['Key']
+    
     body = s3.get_object(Bucket=bucket, Key=key)['Body'].read()
     bio = BytesIO(body)
     df = pd.read_csv(bio, compression='gzip' if key.endswith('.gz') else None)
