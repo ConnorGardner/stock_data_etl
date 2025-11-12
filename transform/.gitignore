@@ -2,6 +2,8 @@
 raw_files/
 standardize_dfs/
 t1_dfs/
+deploy.sh/
+run_finnhub.sh/
 
 # Compiled and cache files
 __pycache__/
